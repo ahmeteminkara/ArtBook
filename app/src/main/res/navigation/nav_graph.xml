@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/artsFragment">
+
+    <fragment
+        android:id="@+id/imageChooseFragment"
+        android:name="com.aek.artbook.feature.choose.ImageChooseFragment"
+        android:label="fragment_image_choose"
+        tools:layout="@layout/fragment_image_choose" />
+    <fragment
+        android:id="@+id/artsFragment"
+        android:name="com.aek.artbook.feature.arts.ArtsFragment"
+        android:label="fragment_arts"
+        tools:layout="@layout/fragment_arts" >
+        <action
+            android:id="@+id/action_artsFragment_to_artAddFormFragment"
+            app:destination="@id/artAddFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/artAddFormFragment"
+        android:name="com.aek.artbook.feature.form.ArtAddFormFragment"
+        android:label="fragment_art_add_form"
+        tools:layout="@layout/fragment_art_add_form" >
+        <action
+            android:id="@+id/action_artAddFormFragment_to_imageChooseFragment"
+            app:destination="@id/imageChooseFragment" />
+    </fragment>
+</navigation>
