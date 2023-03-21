@@ -1,4 +1,4 @@
-package com.aek.artbook.repository.entity
+package com.aek.artbook.repository.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
