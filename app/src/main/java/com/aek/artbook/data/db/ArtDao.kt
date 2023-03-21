@@ -11,5 +11,5 @@ interface ArtDao : BaseDao<ArtModel> {
     suspend fun getAll(): List<ArtModel>
 
     @Query("select * from artmodel where id = :id")
-    suspend fun getWithId(id: Int): ArtModel
+    suspend fun getWithId(id: Int): ArtModel?
 }
