@@ -2,8 +2,8 @@ package com.aek.artbook.di.modules
 
 import android.content.Context
 import androidx.room.Room
-import com.aek.artbook.repository.room.ArtDao
-import com.aek.artbook.repository.room.ArtDatabase
+import com.aek.artbook.data.db.ArtDao
+import com.aek.artbook.data.db.ArtDatabase
 import com.aek.artbook.utils.const.AppConstants
 import dagger.Module
 import dagger.Provides

@@ -7,4 +7,8 @@ object AppConstants {
         const val BASE_URL = "https://pixabay.com"
         const val ENDPOINT_SEARCH = "/api/"
     }
+
+    object ErrorMessage {
+        const val ERROR_MESSAGE_UNKNOWN = "Bilinmeyen bir hata oluştu"
+    }
 }
