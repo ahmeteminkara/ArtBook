@@ -4,23 +4,26 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.aek.artbook.repository.entity.Art
+import com.aek.artbook.repository.model.Art
 
 @Database(
     entities = [Art::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
-abstract class ArtDatabase(context: Context) : RoomDatabase() {
+abstract class ArtDatabase : RoomDatabase() {
 
     abstract fun artDao(): ArtDao
 
-    protected lateinit var db: ArtDatabase
+    companion object {
+        protected lateinit var db: ArtDatabase
 
-    init {
-        db = Room.databaseBuilder(
-            context,
-            this.javaClass,
-            this.javaClass.simpleName
-        ).build()
+        protected fun invoke(context: Context) {
+            db = Room.databaseBuilder(
+                context,
+                ArtDatabase::class.java,
+                "art-db"
+            ).build()
+        }
     }
 }

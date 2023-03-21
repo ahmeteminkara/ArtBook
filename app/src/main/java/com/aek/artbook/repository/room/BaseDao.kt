@@ -19,8 +19,4 @@ interface BaseDao<T> {
 
     @Update
     suspend fun update(item: T)
-
-    suspend fun getAll(): List<T>
-
-    suspend fun getWithId(id: Int): T
 }
