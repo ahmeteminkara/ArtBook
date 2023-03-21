@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/imageChooseFragment"
-        android:name="com.aek.artbook.feature.choose.ImageChooseFragment"
+        android:name="com.aek.artbook.ui.choose.ImageChooseFragment"
         android:label="fragment_image_choose"
         tools:layout="@layout/fragment_image_choose" />
     <fragment
         android:id="@+id/artsFragment"
-        android:name="com.aek.artbook.feature.arts.ArtsFragment"
+        android:name="com.aek.artbook.ui.home.ArtsFragment"
         android:label="fragment_arts"
         tools:layout="@layout/fragment_arts" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/artAddFormFragment"
-        android:name="com.aek.artbook.feature.form.ArtAddFormFragment"
+        android:name="com.aek.artbook.ui.form.ArtAddFormFragment"
         android:label="fragment_art_add_form"
         tools:layout="@layout/fragment_art_add_form" >
         <action
