@@ -18,11 +18,27 @@ class ArtRepositoryImpl @Inject constructor(
 
 ) : ArtRepository {
     override suspend fun insertArt(art: ArtModel) {
-        artDao.insert(art)
+        return artDao.insert(art)
+    }
+
+    override suspend fun insertArt(arts: List<ArtModel>) {
+        return artDao.insert(arts)
     }
 
     override suspend fun deleteArt(art: ArtModel) {
-        artDao.delete(art)
+        return artDao.delete(art)
+    }
+
+    override suspend fun updateArt(art: ArtModel) {
+        return artDao.insert(art)
+    }
+
+    override suspend fun getSavedArts(): List<ArtModel> {
+        return artDao.getAll()
+    }
+
+    override suspend fun getSavedArtWithId(id: Int): ArtModel? {
+        return artDao.getWithId(id)
     }
 
     override suspend fun searchImage(query: String): Flow<Resource<ImageResponse>> {
