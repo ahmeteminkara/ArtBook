@@ -1,55 +1,26 @@
 package com.aek.artbook.data.repository
 
-import com.aek.artbook.data.base.ErrorModel
 import com.aek.artbook.data.base.Resource
-import com.aek.artbook.data.service.ImageService
-import com.aek.artbook.data.db.ArtDao
 import com.aek.artbook.data.model.ImageResponse
+import com.aek.artbook.data.source.local.LocalDataSource
+import com.aek.artbook.data.source.remote.RemoteDataSource
 import com.aek.artbook.domain.ArtModel
-import com.aek.artbook.utils.const.AppConstants
-import com.aek.artbook.utils.extentions.handleResponse
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
-class ArtRepositoryImpl @Inject constructor(
-    private val imageService: ImageService,
-    private val artDao: ArtDao
-
+class ArtRepositoryImpl(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource
 ) : ArtRepository {
-    override suspend fun insertArt(art: ArtModel) {
-        return artDao.insert(art)
-    }
+    override suspend fun insertArt(art: ArtModel) = localDataSource.insertArt(art)
 
-    override suspend fun insertArt(arts: List<ArtModel>) {
-        return artDao.insert(arts)
-    }
+    override suspend fun insertArt(arts: List<ArtModel>) = localDataSource.insertArt(arts)
 
-    override suspend fun deleteArt(art: ArtModel) {
-        return artDao.delete(art)
-    }
+    override suspend fun deleteArt(art: ArtModel) = localDataSource.deleteArt(art)
 
-    override suspend fun updateArt(art: ArtModel) {
-        return artDao.insert(art)
-    }
+    override suspend fun updateArt(art: ArtModel) = localDataSource.updateArt(art)
 
-    override suspend fun getSavedArts(): List<ArtModel> {
-        return artDao.getAll()
-    }
+    override suspend fun getSavedArts(): List<ArtModel> = localDataSource.getSavedArts()
 
-    override suspend fun getSavedArtWithId(id: Int): ArtModel? {
-        return artDao.getWithId(id)
-    }
-
-    override suspend fun searchImage(query: String): Flow<Resource<ImageResponse>> {
-        return flow {
-            val data = try {
-                imageService.searchImage(AppConstants.Service.API_KEY, query).handleResponse()
-            } catch (ex: Exception) {
-                val errorModel = ErrorModel(AppConstants.ErrorMessage.ERROR_MESSAGE_UNKNOWN, 500)
-                Resource.error(errorModel)
-            }
-            emit(data)
-        }
-    }
+    override suspend fun searchImage(query: String): Flow<Resource<ImageResponse>> =
+        remoteDataSource.searchImage(query)
 }

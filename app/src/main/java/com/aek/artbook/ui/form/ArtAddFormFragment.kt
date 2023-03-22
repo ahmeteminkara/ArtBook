@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.aek.artbook.databinding.FragmentArtAddFormBinding
 import com.aek.artbook.ui.base.BaseFragmentWithViewModel
+import com.aek.artbook.utils.const.AppConstants
 import com.aek.artbook.utils.extentions.getNavigationResult
+import com.aek.artbook.utils.extentions.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,11 +50,13 @@ class ArtAddFormFragment :
     }
 
     private fun initFragmentResult() {
-        this.getNavigationResult<String>()?.observe(viewLifecycleOwner) { imagePath ->
-            if (imagePath.isNotEmpty()) {
-                viewModel.setSelectedImagePath(imagePath)
+        this.getNavigationResult<String>(AppConstants.NavigationResult.SELECT_IMAGE)
+            ?.observe(viewLifecycleOwner) { imagePath ->
+                if (imagePath.isNotEmpty()) {
+                    viewModel.setSelectedImagePath(imagePath)
+                    binding.imageViewChoose.loadImage(imagePath)
+                }
             }
-        }
     }
 
     override fun getViewBinding(

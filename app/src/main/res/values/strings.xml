@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">ArtBook</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="lbl_add_new_item">Add new item</string>
-    <string name="lbl_art_name">Art Name</string>
-    <string name="lbl_artist_name">Artist Name</string>
-    <string name="lbl_year">Year</string>
-    <string name="lbl_save">Save</string>
-    <string name="lbl_search_image">Search Image</string>
+    <string name="add_new_item">Add new item</string>
+    <string name="art_name">Art Name</string>
+    <string name="artist_name">Artist Name</string>
+    <string name="year">Year</string>
+    <string name="save">Save</string>
+    <string name="search_image">Search Image</string>
+    <string name="confirm">Confirm</string>
+    <string name="confirm_delete_data">Do you want to delete data?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
 </resources>

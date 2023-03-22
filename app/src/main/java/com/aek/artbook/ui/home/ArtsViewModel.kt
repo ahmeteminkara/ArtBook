@@ -23,4 +23,9 @@ class ArtsViewModel @Inject constructor(
         val list = repository.getSavedArts()
         _artsLiveData.value = list
     }
+
+    fun deleteArt(art: ArtModel) = viewModelScope.launch {
+        repository.deleteArt(art)
+        getSavedArtList()
+    }
 }

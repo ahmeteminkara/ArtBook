@@ -16,7 +16,7 @@ class ArtAddFormViewModel @Inject constructor(
     private val repository: ArtRepository
 ) : BaseViewModel() {
 
-    private var selectedImagePath: String = ""
+    private var selectedImagePath: String = "asdf"
 
     private val _insertLiveData = MutableLiveData<Unit>()
     val insertLiveData: LiveData<Unit>
