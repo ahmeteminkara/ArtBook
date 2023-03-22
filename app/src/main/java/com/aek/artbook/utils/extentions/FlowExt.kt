@@ -1,7 +1,7 @@
 package com.aek.artbook.utils.extentions
 
-import com.aek.artbook.data.ErrorModel
-import com.aek.artbook.data.Resource
+import com.aek.artbook.data.base.ErrorModel
+import com.aek.artbook.data.base.Resource
 import com.aek.artbook.utils.const.AppConstants.ErrorMessage.ERROR_MESSAGE_UNKNOWN
 import retrofit2.Response
 
@@ -10,14 +10,17 @@ fun <T> Response<T>.handleResponse(): Resource<T> {
 
     val errorModel = ErrorModel(ERROR_MESSAGE_UNKNOWN, response.code())
 
-    if (!response.isSuccessful) return Resource.Error(errorModel)
+    if (!response.isSuccessful) return Resource.error(errorModel)
 
     response.body()?.let {
         try {
-            return Resource.Success(it)
+            return Resource.success(it)
         } catch (ex: Exception) {
+            return Resource.error(
+                ErrorModel(ERROR_MESSAGE_UNKNOWN, 500)
+            )
         }
     }
 
-    return Resource.Error(errorModel)
+    return Resource.error(errorModel)
 }

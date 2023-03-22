@@ -16,7 +16,7 @@
         android:label="fragment_arts"
         tools:layout="@layout/fragment_arts" >
         <action
-            android:id="@+id/action_artsFragment_to_artAddFormFragment"
+            android:id="@+id/action_to_artAddFormFragment"
             app:destination="@id/artAddFormFragment" />
     </fragment>
     <fragment
@@ -25,7 +25,7 @@
         android:label="fragment_art_add_form"
         tools:layout="@layout/fragment_art_add_form" >
         <action
-            android:id="@+id/action_artAddFormFragment_to_imageChooseFragment"
+            android:id="@+id/action_to_imageChooseFragment"
             app:destination="@id/imageChooseFragment" />
     </fragment>
 </navigation>

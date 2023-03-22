@@ -1,8 +1,8 @@
 package com.aek.artbook.data.repository
 
-import com.aek.artbook.data.ErrorModel
-import com.aek.artbook.data.Resource
-import com.aek.artbook.data.api.ImageService
+import com.aek.artbook.data.base.ErrorModel
+import com.aek.artbook.data.base.Resource
+import com.aek.artbook.data.service.ImageService
 import com.aek.artbook.data.db.ArtDao
 import com.aek.artbook.data.model.ImageResponse
 import com.aek.artbook.domain.ArtModel
@@ -46,8 +46,8 @@ class ArtRepositoryImpl @Inject constructor(
             val data = try {
                 imageService.searchImage(AppConstants.Service.API_KEY, query).handleResponse()
             } catch (ex: Exception) {
-                val errorModel = ErrorModel(AppConstants.ErrorMessage.ERROR_MESSAGE_UNKNOWN, 501)
-                Resource.Error(errorModel)
+                val errorModel = ErrorModel(AppConstants.ErrorMessage.ERROR_MESSAGE_UNKNOWN, 500)
+                Resource.error(errorModel)
             }
             emit(data)
         }
