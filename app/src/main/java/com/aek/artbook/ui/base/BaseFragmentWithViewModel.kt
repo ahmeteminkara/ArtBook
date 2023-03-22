@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.aek.artbook.utils.extentions.ignoreNull
+import com.aek.artbook.views.AppAlertDialog
 
 abstract class BaseFragmentWithViewModel<VB : ViewBinding, VM : BaseViewModel>(
     private val viewModelClass: Class<VM>
@@ -30,6 +32,10 @@ abstract class BaseFragmentWithViewModel<VB : ViewBinding, VM : BaseViewModel>(
             }
 
             errorLiveData.observe(viewLifecycleOwner) { errorModel ->
+                AppAlertDialog(requireContext())
+                    .setMessage(errorModel?.message.ignoreNull())
+                    .setPositiveButton("Tamam")
+                    .show()
             }
         }
     }

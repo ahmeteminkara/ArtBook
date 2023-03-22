@@ -3,46 +3,74 @@ package com.aek.artbook.ui.base
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseRecyclerViewAdapter<T, VB : ViewBinding> :
+abstract class BaseRecyclerViewAdapter<T : Any, VB : ViewBinding>() :
     RecyclerView.Adapter<BaseRecyclerViewAdapter.Holder>() {
 
-    private var items: MutableList<T> = arrayListOf()
+    abstract val kClass: BaseRecyclerViewAdapter<T, VB>
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    private val listDiffer by lazy {
+        AsyncListDiffer(
+            kClass,
+            object : DiffUtil.ItemCallback<T>() {
+                override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
+                    equalsItem(oldItem, newItem)
+
+                @SuppressLint("DiffUtilEquals")
+                override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
+                    oldItem == newItem
+            }
+        )
+    }
+
+    fun getItem(position: Int): T {
+        return listDiffer.currentList[position]
+    }
+
+    fun updateList(newList: List<T>) {
+        listDiffer.submitList(newList)
+    }
+
+    fun refreshList() {
+        listDiffer.submitList(listDiffer.currentList)
+    }
+
+    fun deleteItem(position: Int) {
+        val newList = ArrayList<T>(listDiffer.currentList)
+        newList.removeAt(position)
+        updateList(newList)
+    }
+
+    fun clear() {
+        updateList(listOf())
+    }
+
+    fun notifyItem(position: Int) {
+        notifyItemChanged(position)
+    }
+
+    override
+    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = getViewBinding(LayoutInflater.from(parent.context), parent)
         return Holder(binding)
     }
 
     @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        setData(holder.viewBinding as VB, items[position], position)
+        setData(holder.viewBinding as VB, listDiffer.currentList[position], position)
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = listDiffer.currentList.size
 
     protected abstract fun getViewBinding(inflater: LayoutInflater, parent: ViewGroup?): VB
 
     protected abstract fun setData(binding: VB, item: T, position: Int)
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateList(newList: List<T>) {
-        if (items.isEmpty()) {
-            items = newList as MutableList<T>
-            notifyDataSetChanged()
-        } else {
-            val diff = BaseDiffUtil(items, newList)
-            diff.calculateAndDispatch(this)
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun clear() {
-        items.clear()
-        notifyDataSetChanged()
-    }
+    protected abstract fun equalsItem(oldItem: T, newItem: T): Boolean
 
     class Holder(val viewBinding: ViewBinding) : RecyclerView.ViewHolder(viewBinding.root)
 }

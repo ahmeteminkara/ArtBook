@@ -11,4 +11,12 @@ object AppConstants {
     object ErrorMessage {
         const val ERROR_MESSAGE_UNKNOWN = "Bilinmeyen bir hata oluştu"
     }
+
+    object NavigationResult {
+        const val SELECT_IMAGE = "SELECT_IMAGE"
+    }
+
+    object Timeout {
+        const val SEARCH_CHANGE_LISTENER_TIMEOUT_MS = 1000L
+    }
 }
