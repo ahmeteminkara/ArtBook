@@ -1,9 +1,9 @@
 package com.aek.artbook.data.model
 
 data class ImageResponse(
-    val hints: List<Image>,
+    val hits: List<Image>,
     val total: Int?,
-    val totalHints: Int?
+    val totalHits: Int?
 )
 
 data class Image(

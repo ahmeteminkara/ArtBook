@@ -1,6 +1,6 @@
 package com.aek.artbook.data.repository
 
-import com.aek.artbook.data.Resource
+import com.aek.artbook.data.base.Resource
 import com.aek.artbook.data.model.ImageResponse
 import com.aek.artbook.domain.ArtModel
 import kotlinx.coroutines.flow.Flow

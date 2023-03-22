@@ -19,6 +19,28 @@ abstract class BaseFragmentWithViewModel<VB : ViewBinding, VM : BaseViewModel>(
         viewModel = ViewModelProvider(this)[viewModelClass]
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeBaseViewModel()
+    }
+
+    private fun observeBaseViewModel() {
+        with(viewModel) {
+            loadingLiveData.observe(viewLifecycleOwner) {
+            }
+
+            errorLiveData.observe(viewLifecycleOwner) { errorModel ->
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        viewModel.loadingLiveData.removeObservers(viewLifecycleOwner)
+        viewModel.errorLiveData.removeObservers(viewLifecycleOwner)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

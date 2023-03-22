@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import com.aek.artbook.ui.base.BaseFragmentWithViewModel
 import com.aek.artbook.databinding.FragmentArtsBinding
+import com.aek.artbook.ui.base.BaseFragmentWithViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ArtsFragment : BaseFragmentWithViewModel<FragmentArtsBinding, ArtsViewModel>(
     ArtsViewModel::class.java
 ) {
@@ -16,7 +18,7 @@ class ArtsFragment : BaseFragmentWithViewModel<FragmentArtsBinding, ArtsViewMode
         super.onViewCreated(view, savedInstanceState)
 
         binding.fab.setOnClickListener {
-            val directions = ArtsFragmentDirections.actionArtsFragmentToArtAddFormFragment()
+            val directions = ArtsFragmentDirections.actionToArtAddFormFragment()
             it.findNavController().navigate(directions)
         }
     }

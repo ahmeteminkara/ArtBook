@@ -1,6 +1,6 @@
 package com.aek.artbook.di.modules
 
-import com.aek.artbook.data.api.ImageService
+import com.aek.artbook.data.service.ImageService
 import com.aek.artbook.data.db.ArtDao
 import com.aek.artbook.data.repository.ArtRepository
 import com.aek.artbook.data.repository.ArtRepositoryImpl

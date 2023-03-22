@@ -1,14 +1,59 @@
 package com.aek.artbook.ui.form
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import com.aek.artbook.ui.base.BaseFragmentWithViewModel
+import androidx.navigation.findNavController
 import com.aek.artbook.databinding.FragmentArtAddFormBinding
+import com.aek.artbook.ui.base.BaseFragmentWithViewModel
+import com.aek.artbook.utils.extentions.getNavigationResult
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ArtAddFormFragment :
     BaseFragmentWithViewModel<FragmentArtAddFormBinding, ArtAddFormViewModel>(
         ArtAddFormViewModel::class.java
     ) {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initBinding()
+        initFragmentResult()
+        observeViewModel()
+    }
+
+    private fun initBinding() {
+        with(binding) {
+            imageViewChoose.setOnClickListener {
+                val action = ArtAddFormFragmentDirections.actionToImageChooseFragment()
+                it.findNavController().navigate(action)
+            }
+            buttonSave.setOnClickListener {
+                val name = editTextArtName.text?.trim().toString()
+                val artistName = editTextArtistName.text?.trim().toString()
+                val year = editTextYear.text?.trim().toString()
+                viewModel.insertArt(name, artistName, year)
+            }
+        }
+    }
+
+    private fun observeViewModel() {
+        with(viewModel) {
+            insertLiveData.observe(viewLifecycleOwner) {
+                binding.root.findNavController().popBackStack()
+            }
+        }
+    }
+
+    private fun initFragmentResult() {
+        this.getNavigationResult<String>()?.observe(viewLifecycleOwner) { imagePath ->
+            if (imagePath.isNotEmpty()) {
+                viewModel.setSelectedImagePath(imagePath)
+            }
+        }
+    }
 
     override fun getViewBinding(
         inflater: LayoutInflater,

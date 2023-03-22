@@ -1,4 +1,4 @@
-package com.aek.artbook.data.api
+package com.aek.artbook.data.service
 
 import com.aek.artbook.data.model.ImageResponse
 import com.aek.artbook.utils.const.AppConstants

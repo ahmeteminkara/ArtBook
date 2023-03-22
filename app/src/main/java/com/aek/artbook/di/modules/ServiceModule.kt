@@ -1,6 +1,6 @@
 package com.aek.artbook.di.modules
 
-import com.aek.artbook.data.api.ImageService
+import com.aek.artbook.data.service.ImageService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
