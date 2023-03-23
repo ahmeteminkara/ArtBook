@@ -12,10 +12,7 @@ class ImageRecyclerViewAdapter(
     private val onSelectImage: (Image) -> Unit
 ) : BaseRecyclerViewAdapter<Image, ItemSearchImageGridRowBinding>() {
 
-    override val kClass: BaseRecyclerViewAdapter<Image, ItemSearchImageGridRowBinding>
-        get() = this
-
-    override fun equalsItem(oldItem: Image, newItem: Image): Boolean =
+    override fun equalsItemOfModel(oldItem: Image, newItem: Image): Boolean =
         oldItem.id == newItem.id
 
     override fun getViewBinding(

@@ -2,7 +2,7 @@ package com.aek.artbook.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.aek.artbook.domain.ArtModel
+import com.aek.artbook.data.model.ArtModel
 
 @Database(
     entities = [ArtModel::class],

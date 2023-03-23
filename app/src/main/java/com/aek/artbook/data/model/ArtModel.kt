@@ -1,4 +1,4 @@
-package com.aek.artbook.domain
+package com.aek.artbook.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
