@@ -2,7 +2,7 @@ package com.aek.artbook.data.db
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.aek.artbook.domain.ArtModel
+import com.aek.artbook.data.model.ArtModel
 
 @Dao
 interface ArtDao : BaseDao<ArtModel> {

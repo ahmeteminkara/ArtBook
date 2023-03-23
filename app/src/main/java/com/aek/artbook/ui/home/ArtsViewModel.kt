@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.aek.artbook.data.repository.ArtRepository
-import com.aek.artbook.domain.ArtModel
+import com.aek.artbook.data.model.ArtModel
 import com.aek.artbook.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

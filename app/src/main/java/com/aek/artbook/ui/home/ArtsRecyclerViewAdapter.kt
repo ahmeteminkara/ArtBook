@@ -3,18 +3,15 @@ package com.aek.artbook.ui.home
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.aek.artbook.data.model.ArtModel
 import com.aek.artbook.databinding.ItemHomeArtRowBinding
-import com.aek.artbook.domain.ArtModel
 import com.aek.artbook.ui.base.BaseRecyclerViewAdapter
 import com.aek.artbook.utils.extentions.loadImage
 
 class ArtsRecyclerViewAdapter : BaseRecyclerViewAdapter<ArtModel, ItemHomeArtRowBinding>() {
 
-    override val kClass: BaseRecyclerViewAdapter<ArtModel, ItemHomeArtRowBinding>
-        get() = this
-
-    override fun equalsItem(oldItem: ArtModel, newItem: ArtModel): Boolean =
-        oldItem.id == newItem.id
+    override fun equalsItemOfModel(oldItem: ArtModel, newItem: ArtModel): Boolean =
+        oldItem == newItem
 
     override fun getViewBinding(
         inflater: LayoutInflater,

@@ -1,6 +1,6 @@
 package com.aek.artbook.data.source.local
 
-import com.aek.artbook.domain.ArtModel
+import com.aek.artbook.data.model.ArtModel
 
 interface LocalDataSource {
     suspend fun insertArt(art: ArtModel)

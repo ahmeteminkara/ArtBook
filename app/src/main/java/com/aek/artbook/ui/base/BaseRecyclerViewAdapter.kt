@@ -8,17 +8,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseRecyclerViewAdapter<T : Any, VB : ViewBinding>() :
+abstract class BaseRecyclerViewAdapter<T : Any, VB : ViewBinding> :
     RecyclerView.Adapter<BaseRecyclerViewAdapter.Holder>() {
-
-    abstract val kClass: BaseRecyclerViewAdapter<T, VB>
 
     private val listDiffer by lazy {
         AsyncListDiffer(
-            kClass,
+            this,
             object : DiffUtil.ItemCallback<T>() {
                 override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
-                    equalsItem(oldItem, newItem)
+                    oldItem == newItem
 
                 @SuppressLint("DiffUtilEquals")
                 override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
@@ -30,6 +28,8 @@ abstract class BaseRecyclerViewAdapter<T : Any, VB : ViewBinding>() :
     fun getItem(position: Int): T {
         return listDiffer.currentList[position]
     }
+
+    fun getItems(): List<T> = listDiffer.currentList
 
     fun updateList(newList: List<T>) {
         listDiffer.submitList(newList)
@@ -70,7 +70,7 @@ abstract class BaseRecyclerViewAdapter<T : Any, VB : ViewBinding>() :
 
     protected abstract fun setData(binding: VB, item: T, position: Int)
 
-    protected abstract fun equalsItem(oldItem: T, newItem: T): Boolean
+    protected abstract fun equalsItemOfModel(oldItem: T, newItem: T): Boolean
 
     class Holder(val viewBinding: ViewBinding) : RecyclerView.ViewHolder(viewBinding.root)
 }

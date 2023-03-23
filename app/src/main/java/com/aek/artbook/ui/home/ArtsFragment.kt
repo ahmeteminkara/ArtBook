@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import com.aek.artbook.R
+import com.aek.artbook.data.model.ArtModel
 import com.aek.artbook.databinding.FragmentArtsBinding
 import com.aek.artbook.ui.base.BaseFragmentWithViewModel
 import com.aek.artbook.utils.extentions.addDivider
 import com.aek.artbook.utils.extentions.addToSwipeCallback
 import com.aek.artbook.views.AppAlertDialog
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class ArtsFragment : BaseFragmentWithViewModel<FragmentArtsBinding, ArtsViewModel>
@@ -44,8 +45,14 @@ class ArtsFragment : BaseFragmentWithViewModel<FragmentArtsBinding, ArtsViewMode
             }
 
             fab.setOnClickListener {
-                val directions = ArtsFragmentDirections.actionToArtAddFormFragment()
-                it.findNavController().navigate(directions)
+                // val directions = ArtsFragmentDirections.actionToArtAddFormFragment()
+                // it.findNavController().navigate(directions)
+
+                val list = adapter.getItems().toMutableList()
+                list[0].name = Calendar.getInstance().time.toString()
+                list[0].imagePath = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+
+                adapter.updateList(list)
             }
         }
     }

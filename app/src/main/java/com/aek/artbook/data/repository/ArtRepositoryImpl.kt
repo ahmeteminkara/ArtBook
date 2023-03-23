@@ -4,7 +4,7 @@ import com.aek.artbook.data.base.Resource
 import com.aek.artbook.data.model.ImageResponse
 import com.aek.artbook.data.source.local.LocalDataSource
 import com.aek.artbook.data.source.remote.RemoteDataSource
-import com.aek.artbook.domain.ArtModel
+import com.aek.artbook.data.model.ArtModel
 import kotlinx.coroutines.flow.Flow
 
 class ArtRepositoryImpl(

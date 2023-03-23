@@ -1,7 +1,7 @@
 package com.aek.artbook.data.source.local
 
 import com.aek.artbook.data.db.ArtDao
-import com.aek.artbook.domain.ArtModel
+import com.aek.artbook.data.model.ArtModel
 
 class LocalDataSourceImpl(private val dao: ArtDao) : LocalDataSource {
     override suspend fun insertArt(art: ArtModel) = dao.insert(art)
