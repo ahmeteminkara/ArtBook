@@ -1,4 +1,4 @@
-package com.aek.artbook.utils.extentions
+package com.aek.artbook.extentions
 
 import android.widget.ImageView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable

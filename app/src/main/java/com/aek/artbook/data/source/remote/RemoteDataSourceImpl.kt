@@ -3,8 +3,8 @@ package com.aek.artbook.data.source.remote
 import com.aek.artbook.data.base.Resource
 import com.aek.artbook.data.model.ImageResponse
 import com.aek.artbook.data.service.ImageService
-import com.aek.artbook.utils.const.AppConstants
-import com.aek.artbook.utils.extentions.handleResponse
+import com.aek.artbook.constants.AppConstants
+import com.aek.artbook.extentions.handleResponse
 import kotlinx.coroutines.flow.Flow
 
 class RemoteDataSourceImpl(

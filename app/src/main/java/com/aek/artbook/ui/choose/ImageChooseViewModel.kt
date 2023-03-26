@@ -7,8 +7,8 @@ import com.aek.artbook.data.base.ErrorModel
 import com.aek.artbook.data.model.ImageResponse
 import com.aek.artbook.data.repository.ArtRepository
 import com.aek.artbook.ui.base.BaseViewModel
-import com.aek.artbook.utils.const.AppConstants
-import com.aek.artbook.utils.extentions.handleResourceNotNullData
+import com.aek.artbook.constants.AppConstants
+import com.aek.artbook.extentions.handleResourceNotNullData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

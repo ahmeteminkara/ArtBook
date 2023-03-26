@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.aek.artbook.constants.AppConstants
 import com.aek.artbook.databinding.FragmentImageChooseBinding
+import com.aek.artbook.extentions.addTextChangedListenerWithTimeout
+import com.aek.artbook.extentions.setNavigationResultToBack
 import com.aek.artbook.ui.base.BaseFragmentWithViewModel
-import com.aek.artbook.utils.const.AppConstants
-import com.aek.artbook.utils.extentions.addTextChangedListenerWithTimeout
-import com.aek.artbook.utils.extentions.setNavigationResultToBack
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,7 +45,7 @@ class ImageChooseFragment :
     private fun observeViewModel() {
         with(viewModel) {
             searchLiveData.observe(viewLifecycleOwner) {
-                adapter.updateList(it.hits)
+                adapter.items = it.hits
             }
         }
     }

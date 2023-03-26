@@ -1,4 +1,4 @@
-package com.aek.artbook.utils.extentions
+package com.aek.artbook.extentions
 
 import com.aek.artbook.data.base.ErrorModel
 import com.aek.artbook.data.base.Resource

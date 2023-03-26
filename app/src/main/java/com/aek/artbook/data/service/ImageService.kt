@@ -1,7 +1,7 @@
 package com.aek.artbook.data.service
 
+import com.aek.artbook.constants.AppConstants
 import com.aek.artbook.data.model.ImageResponse
-import com.aek.artbook.utils.const.AppConstants
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

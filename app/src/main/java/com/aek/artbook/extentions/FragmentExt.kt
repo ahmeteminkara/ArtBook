@@ -1,4 +1,4 @@
-package com.aek.artbook.utils.extentions
+package com.aek.artbook.extentions
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController

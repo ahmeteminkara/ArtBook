@@ -1,4 +1,4 @@
-package com.aek.artbook.utils.const
+package com.aek.artbook.constants
 
 object AppConstants {
 

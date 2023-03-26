@@ -2,9 +2,10 @@ package com.aek.artbook.di.modules
 
 import android.content.Context
 import androidx.room.Room
+import com.aek.artbook.constants.AppConstants
 import com.aek.artbook.data.db.ArtDao
 import com.aek.artbook.data.db.ArtDatabase
-import com.aek.artbook.utils.const.AppConstants
+import com.aek.artbook.data.db.RoomMigrations
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,11 +22,12 @@ class AppModule {
     @Singleton
     @Provides
     fun provideRoomDatabase(@ApplicationContext context: Context): ArtDatabase {
-        return Room.databaseBuilder(
-            context,
-            ArtDatabase::class.java,
-            "art-db"
-        ).build()
+        return Room.databaseBuilder(context, ArtDatabase::class.java, "art-db")
+            .fallbackToDestructiveMigration()
+            .addMigrations(
+                RoomMigrations.MIGRATION_1_2
+            )
+            .build()
     }
 
     @Singleton

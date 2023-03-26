@@ -9,68 +9,60 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseRecyclerViewAdapter<T : Any, VB : ViewBinding> :
-    RecyclerView.Adapter<BaseRecyclerViewAdapter.Holder>() {
+    RecyclerView.Adapter<BaseRecyclerViewAdapter.Holder<VB>>() {
 
-    private val listDiffer by lazy {
-        AsyncListDiffer(
-            this,
-            object : DiffUtil.ItemCallback<T>() {
-                override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
-                    oldItem == newItem
+    protected val diffCallback = object : DiffUtil.ItemCallback<T>() {
+        override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
+            return oldItem == newItem
+        }
 
-                @SuppressLint("DiffUtilEquals")
-                override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
-                    oldItem == newItem
-            }
-        )
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
+            return oldItem.hashCode() == newItem.hashCode()
+        }
     }
 
-    fun getItem(position: Int): T {
-        return listDiffer.currentList[position]
-    }
+    var items: List<T>
+        get() = differ.currentList
+        set(value) = differ.submitList(value)
 
-    fun getItems(): List<T> = listDiffer.currentList
-
-    fun updateList(newList: List<T>) {
-        listDiffer.submitList(newList)
-    }
-
-    fun refreshList() {
-        listDiffer.submitList(listDiffer.currentList)
-    }
-
-    fun deleteItem(position: Int) {
-        val newList = ArrayList<T>(listDiffer.currentList)
-        newList.removeAt(position)
-        updateList(newList)
-    }
-
-    fun clear() {
-        updateList(listOf())
-    }
-
-    fun notifyItem(position: Int) {
+    fun insertItem(item: T, position: Int) {
+        items = items.toMutableList().apply {
+            this.add(position, item)
+        }
         notifyItemChanged(position)
     }
 
-    override
-    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    fun updateItem(item: T, position: Int) {
+        items = items.toMutableList().apply {
+            this[position] = item
+        }
+        notifyItemChanged(position)
+    }
+
+    fun deleteItem(position: Int) {
+        items = items.toMutableList().apply {
+            this.removeAt(position)
+        }
+        notifyItemRemoved(position)
+    }
+
+    override fun getItemCount() = differ.currentList.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder<VB> {
         val binding = getViewBinding(LayoutInflater.from(parent.context), parent)
         return Holder(binding)
     }
 
-    @Suppress("UNCHECKED_CAST")
-    override fun onBindViewHolder(holder: Holder, position: Int) {
-        setData(holder.viewBinding as VB, listDiffer.currentList[position], position)
+    override fun onBindViewHolder(holder: Holder<VB>, position: Int) {
+        setData(holder.binding, items[position], position)
     }
 
-    override fun getItemCount() = listDiffer.currentList.size
+    protected abstract val differ: AsyncListDiffer<T>
 
     protected abstract fun getViewBinding(inflater: LayoutInflater, parent: ViewGroup?): VB
 
     protected abstract fun setData(binding: VB, item: T, position: Int)
 
-    protected abstract fun equalsItemOfModel(oldItem: T, newItem: T): Boolean
-
-    class Holder(val viewBinding: ViewBinding) : RecyclerView.ViewHolder(viewBinding.root)
+    class Holder<VB : ViewBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root)
 }

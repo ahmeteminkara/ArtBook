@@ -4,21 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.aek.artbook.R
+import androidx.navigation.findNavController
 import com.aek.artbook.data.model.ArtModel
 import com.aek.artbook.databinding.FragmentArtsBinding
+import com.aek.artbook.extentions.addDivider
+import com.aek.artbook.extentions.addToSwipeCallback
 import com.aek.artbook.ui.base.BaseFragmentWithViewModel
-import com.aek.artbook.utils.extentions.addDivider
-import com.aek.artbook.utils.extentions.addToSwipeCallback
-import com.aek.artbook.views.AppAlertDialog
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class ArtsFragment : BaseFragmentWithViewModel<FragmentArtsBinding, ArtsViewModel>
 (ArtsViewModel::class.java) {
 
-    private val adapter = ArtsRecyclerViewAdapter()
+    private val artsAdapter = ArtsRecyclerViewAdapter { art, position ->
+        onFavoriteClick(art, position)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,38 +30,41 @@ class ArtsFragment : BaseFragmentWithViewModel<FragmentArtsBinding, ArtsViewMode
 
     private fun initBinding() {
         with(binding) {
-            recyclerView.adapter = adapter
-            recyclerView.addDivider()
-            recyclerView.addToSwipeCallback { position, direction ->
-                AppAlertDialog(requireContext())
-                    .setTitle(R.string.confirm)
-                    .setMessage(R.string.confirm_delete_data)
-                    .setNegativeButton(R.string.no) {
-                        adapter.notifyItem(position)
-                    }
-                    .setPositiveButton(R.string.yes) {
-                        viewModel.deleteArt(adapter.getItem(position))
-                    }
-                    .show()
+            recyclerView.apply {
+                adapter = artsAdapter
+                addDivider()
+                setHasFixedSize(true)
+                addToSwipeCallback { position, direction ->
+                    val art = artsAdapter.items[position]
+                    viewModel.deleteArt(art)
+                    artsAdapter.deleteItem(position)
+                    Snackbar.make(this, "Article deleted successfully", Snackbar.LENGTH_LONG)
+                        .apply {
+                            setAction("Undo") {
+                                viewModel.insertArt(art)
+                                artsAdapter.insertItem(art, position)
+                            }.show()
+                        }
+                }
             }
 
             fab.setOnClickListener {
-                // val directions = ArtsFragmentDirections.actionToArtAddFormFragment()
-                // it.findNavController().navigate(directions)
-
-                val list = adapter.getItems().toMutableList()
-                list[0].name = Calendar.getInstance().time.toString()
-                list[0].imagePath = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
-
-                adapter.updateList(list)
+                val directions = ArtsFragmentDirections.actionToArtAddFormFragment()
+                it.findNavController().navigate(directions)
             }
         }
     }
 
     private fun observeViewModel() {
         viewModel.artsLiveData.observe(viewLifecycleOwner) {
-            adapter.updateList(it)
+            artsAdapter.items = it
         }
+    }
+
+    private fun onFavoriteClick(artModel: ArtModel, position: Int) {
+        artModel.isFavorite = !artModel.isFavorite
+        viewModel.updateArt(artModel)
+        artsAdapter.updateItem(artModel, position)
     }
 
     override fun onResume() {
