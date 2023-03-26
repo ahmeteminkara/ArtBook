@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
-import com.aek.artbook.utils.extentions.ignoreNull
+import com.aek.artbook.extentions.ignoreNull
 import com.aek.artbook.views.AppAlertDialog
 
 abstract class BaseFragmentWithViewModel<VB : ViewBinding, VM : BaseViewModel>(

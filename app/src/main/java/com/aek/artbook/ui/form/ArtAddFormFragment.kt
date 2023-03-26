@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.aek.artbook.databinding.FragmentArtAddFormBinding
 import com.aek.artbook.ui.base.BaseFragmentWithViewModel
-import com.aek.artbook.utils.const.AppConstants
-import com.aek.artbook.utils.extentions.getNavigationResult
-import com.aek.artbook.utils.extentions.loadImage
+import com.aek.artbook.constants.AppConstants
+import com.aek.artbook.extentions.getNavigationResult
+import com.aek.artbook.extentions.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

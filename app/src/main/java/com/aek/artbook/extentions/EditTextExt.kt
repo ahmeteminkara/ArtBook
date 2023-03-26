@@ -1,4 +1,4 @@
-package com.aek.artbook.utils.extentions
+package com.aek.artbook.extentions
 
 import android.widget.EditText
 import androidx.core.widget.addTextChangedListener

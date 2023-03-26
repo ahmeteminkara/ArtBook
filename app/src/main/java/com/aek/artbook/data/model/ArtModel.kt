@@ -9,6 +9,7 @@ data class ArtModel(
     var artistName: String,
     var year: String,
     var imagePath: String,
+    var isFavorite: Boolean,
     @PrimaryKey(true)
     var id: Int? = null
 )

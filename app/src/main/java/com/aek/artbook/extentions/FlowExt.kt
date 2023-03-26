@@ -1,8 +1,8 @@
-package com.aek.artbook.utils.extentions
+package com.aek.artbook.extentions
 
 import com.aek.artbook.data.base.ErrorModel
 import com.aek.artbook.data.base.Resource
-import com.aek.artbook.utils.const.AppConstants.ErrorMessage.ERROR_MESSAGE_UNKNOWN
+import com.aek.artbook.constants.AppConstants.ErrorMessage.ERROR_MESSAGE_UNKNOWN
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response

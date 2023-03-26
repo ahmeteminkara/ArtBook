@@ -1,4 +1,4 @@
-package com.aek.artbook.utils.extentions
+package com.aek.artbook.extentions
 
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper

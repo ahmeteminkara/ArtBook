@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.aek.artbook.data.base.ErrorModel
-import com.aek.artbook.data.repository.ArtRepository
 import com.aek.artbook.data.model.ArtModel
+import com.aek.artbook.data.repository.ArtRepository
 import com.aek.artbook.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -36,7 +36,7 @@ class ArtAddFormViewModel @Inject constructor(
             return null
         }
 
-        return ArtModel(name, artistName, year, selectedImagePath)
+        return ArtModel(name, artistName, year, selectedImagePath, false)
     }
 
     fun insertArt(name: String, artistName: String, year: String) {
